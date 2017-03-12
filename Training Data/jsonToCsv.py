@@ -3,12 +3,11 @@ import csv
 import codecs
 
 
-
-f = codecs.open("verifiedUser-json.json", "r", "utf-8")
+f = codecs.open("bots-json.json", "r", "utf-8")
 data = json.load(f)
 f.close()
 # codecs.open(file,'w','utf-8')
-f = csv.writer(open("data-verified-human-user.csv", "wb+"))
+f = csv.writer(open("data-bots.csv", "wb+"))
 
 # Write CSV Header, If you dont need that, remove this line
 f.writerow(["id", "id_str", "name", "screen_name", "location", "description", "url", "followers_count", "friends_count", "listed_count", "created_at", "favourites_count", "verified", "statuses_count", "lang", "status/text", "has_extended_profile", "default_profile", "default_profile_image"])
@@ -26,8 +25,7 @@ for x in data["users"]:
                 x["followers_count"], x["friends_count"], x["listed_count"], x["created_at"], x["favourites_count"],
                 x["verified"], x["statuses_count"],
         x["lang"],
-        x["status"]["text"].encode("UTF-8") if 'status' in x and x["status"] is not None and x["status"]["text"] is not None else "",
+        x["status"] if 'status' in x and x["status"] is not None and x["status"] is not None else "",
         x["has_extended_profile"],
-                x["default_profile"], x["default_profile_image"], "1"])
-
-
+                x["default_profile"], x["default_profile_image"], "True"])
+    
